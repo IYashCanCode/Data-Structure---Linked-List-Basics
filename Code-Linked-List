@@ -1,0 +1,113 @@
+//insertion in linked list compiled
+
+#include<stdio.h>
+#include<malloc.h>
+
+struct link
+{
+    int data;
+    struct link *next;
+};
+
+struct link start,*node;
+
+void create_LL()
+{
+    char ch;
+    start.next = NULL;
+    node = &start;
+    printf("Enter choice n to break: ");
+    scanf("%c",&ch);
+    while(ch!='n')
+    {
+        node->next = (struct link *)malloc(sizeof(struct link));
+        node = node->next;
+        printf("Enter the node value: ");
+        scanf("%d",&node->data);
+        node->next = NULL;
+        printf("Enter choice n to break: ");
+        scanf(" %c",& ch);
+    }
+}
+
+void display()
+{
+    node = start.next;
+    while(node)
+    {
+        printf("%d->",node->data);
+        node=node->next;
+    }
+    printf("NULL");
+}
+
+
+void insert_at_first()
+{
+    struct link *temp;
+    node = start.next;
+    temp = (struct link *)malloc(sizeof(struct link));
+    start.next = temp;
+    printf("\nEnter the data : ");
+    scanf("%d",&temp->data);
+    temp->next = node;
+    node = start.next;
+
+}
+
+void insert_at_last()
+{
+    node = &start;
+    while(node->next!=NULL)
+    {
+        node = node->next;
+    }
+    node->next = (struct link *)malloc(sizeof(struct link));
+    node = node->next;
+    printf("\nEnter the value for last node: ");
+    scanf("%d",&node->data);
+    node->next = NULL;
+}
+
+void insert_at_specific()
+{
+    int i, count = 0;
+    struct link *temp;
+    printf("\nEnter the position where you want to insert the new element: ");
+    scanf("%d",&i);
+    node = &start;
+    while(node->next)
+    {
+        node = node->next;
+        count++;
+        if(count==i-1)
+        {
+            temp = (struct link *)malloc(sizeof(struct link));
+            printf("Enter the value of the specific node: ");
+            scanf("%d",&temp->data);
+            temp->next = node->next;
+            node->next = temp;
+        }
+
+        if(i==1)
+        {
+            insert_at_first();
+            break;
+        }
+
+    }
+}
+
+
+int main()
+{
+    create_LL();
+    display();
+    insert_at_first();
+    display();
+    insert_at_last();
+    display();
+    insert_at_specific();
+    display();
+    return 0;
+}
